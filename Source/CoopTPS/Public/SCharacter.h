@@ -44,7 +44,7 @@ protected:
 
 	USHealthComponent* HealthComp;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
 	bool bDied;
 
 	UPROPERTY(EditDefaultsOnly,Category = "Player")
@@ -55,7 +55,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player", meta = (ClampMin = 0.0, ClampMax = 100))
 	float ZoomInterpSpeed;
 
+	UPROPERTY(Replicated)
 	ASWeapon* CurrentWeapon;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
 	TSubclassOf<ASWeapon> StarterWeaponClass;
 
@@ -63,6 +65,10 @@ protected:
 		FName WeaponAttachSocketName;
 
 
+	/// <summary>
+	/// SERVER
+	/// </summary>
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps)const;
 
 public:	
 	// Called every frame

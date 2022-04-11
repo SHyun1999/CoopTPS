@@ -10,6 +10,21 @@ class USkeletalMeshComponent;
 class USDamageType;
 class UParticleSystem;
 
+//info of a hitscan weapon linetrace
+USTRUCT()
+struct FHitScanTrace
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	TEnumAsByte<EPhysicalSurface> SurfaceType;
+	
+	UPROPERTY()
+	FVector_NetQuantize TraceTo;
+};
+
 UCLASS()
 class COOPTPS_API ASWeapon : public AActor
 {
@@ -64,12 +79,28 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	TSubclassOf<UCameraShakeBase> FireCamShake;
 
+	UPROPERTY(ReplicatedUsing="OnRep_HitScanTrace")
+	FHitScanTrace HitScanTrace;
+
+	/// <summary>
+	/// FUNCTIONS
+	/// </summary>
+	
+	UFUNCTION()
+	void OnRep_HitScanTrace();
+
 	void PlayFireEffect(FVector TracerEndPoint);
+
+	void PlayImpactEffect(EPhysicalSurface SurfaceType, FVector ImpactPoint);
 
 	void ShakeCamera(AActor* MyOwner);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	virtual void Fire();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerFire();
+
 public:
 
 	void StartFire();
