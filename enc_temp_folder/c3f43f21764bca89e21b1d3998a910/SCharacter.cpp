@@ -102,7 +102,7 @@ void ASCharacter::StopFire()
 void ASCharacter::OnHealthChanged(USHealthComponent* HealthCompThing, float Health,
 	float HealthDelta, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	if (Health <= 0.f && !bDied)
+	if (Health < 0.f && !bDied)
 	{
 		bDied = true;
 		GetMovementComponent()->StopMovementImmediately();

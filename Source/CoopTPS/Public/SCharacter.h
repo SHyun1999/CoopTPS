@@ -8,6 +8,8 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class ASWeapon;
+class USHealthComponent;
 UCLASS()
 class COOPTPS_API ASCharacter : public ACharacter
 {
@@ -25,12 +27,41 @@ protected:
 	void MoveRight(float Value);
 	void BeginCrouch();
 	void EndCrouch();
+	void BeginZoom();
+	void EndZoom();
+
+	void StartFire();
+	void StopFire();
+
+	UFUNCTION()
+	void OnHealthChanged(USHealthComponent* HealthCompThing, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, class AActor* DamageCauser);
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
 	UCameraComponent* CameraComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USpringArmComponent* SpringArmComp;
+
+	USHealthComponent* HealthComp;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	bool bDied;
+
+	UPROPERTY(EditDefaultsOnly,Category = "Player")
+	float ZoomedFOV;
+	float DefaultFOV;
+	bool bWantsToZoom;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player", meta = (ClampMin = 0.0, ClampMax = 100))
+	float ZoomInterpSpeed;
+
+	ASWeapon* CurrentWeapon;
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
+	TSubclassOf<ASWeapon> StarterWeaponClass;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+		FName WeaponAttachSocketName;
+
 
 
 public:	
@@ -39,5 +70,7 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual FVector GetPawnViewLocation() const override;
 
 };
