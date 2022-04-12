@@ -31,10 +31,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	URadialForceComponent* RadialForceComp;
 
-	UFUNCTION()
-	void OnHealthChanged(USHealthComponent* HealthCompThing, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, class AActor* DamageCauser);
 
-
+	UPROPERTY(ReplicatedUsing=OnRep_Exploded)
 	bool bExploded;
 
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
@@ -46,5 +44,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
 		UMaterialInterface* ExplodeMaterial;
 
+	UFUNCTION()
+	void OnHealthChanged(USHealthComponent* HealthCompThing, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, class AActor* DamageCauser);
+
+	UFUNCTION()
+	void OnRep_Exploded();
 public:	
 };
