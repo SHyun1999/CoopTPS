@@ -84,6 +84,8 @@ void ASTracker::Tick(float DeltaTime)
 
 void ASTracker::NotifyActorBeginOverlap(AActor* OtherActor)
 {
+	Super::NotifyActorBeginOverlap(OtherActor);
+
 	if (bStartedSelfDest) return;
 
 	ASCharacter* PlayerChar = Cast<ASCharacter>(OtherActor);
