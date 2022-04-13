@@ -24,6 +24,7 @@ ASTracker::ASTracker()
 	RootComponent = MeshComp;
 
 	HealthComp = CreateDefaultSubobject<USHealthComponent>(TEXT("HealthComp"));
+	HealthComp->OnHealthChanged.AddDynamic(this, &ASTracker::OnHealthChanged);
 
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetSphereRadius(600);
@@ -33,7 +34,7 @@ ASTracker::ASTracker()
 	SphereComp->SetupAttachment(RootComponent);
 
 	bUseVelocityChange = true;
-	MovementForce = 600;
+	MovementForce = 1000;
 	MinDistanceToTarget = 100;
 
 }
@@ -43,7 +44,6 @@ void ASTracker::BeginPlay()
 {
 	Super::BeginPlay();
 
-	HealthComp->OnHealthChanged.AddDynamic(this, &ASTracker::OnHealthChanged);
 	
 	if (HasAuthority())
 	{
@@ -147,7 +147,6 @@ FVector ASTracker::GetNextPathPoint()
 void ASTracker::OnHealthChanged(USHealthComponent* HealthCompThing, float Health, float HealthDelta,
 	const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	UE_LOG(LogTemp, Warning, TEXT("owo"));
 	if (Health <= 0)
 	{
 		SelfDestruct();
@@ -162,6 +161,7 @@ void ASTracker::OnHealthChanged(USHealthComponent* HealthCompThing, float Health
 	{
 		MatInst->SetScalarParameterValue("LastDamageTaken", GetWorld()->TimeSeconds);
 	}
+
 
 }
 

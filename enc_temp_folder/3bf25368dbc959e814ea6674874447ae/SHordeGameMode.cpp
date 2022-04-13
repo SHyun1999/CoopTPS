@@ -8,7 +8,7 @@
 ASHordeGameMode::ASHordeGameMode()
 {
 
-	TimeBetweenWaves = 20.f;
+	TimeBetweenWaves = 2.f;
 
 }
 
