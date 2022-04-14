@@ -61,6 +61,11 @@ void USHealthComponent::Heal(float HealAmount)
 
 }
 
+float USHealthComponent::GetHealth() const
+{
+	return Health;
+}
+
 ///////////////////////////////SERVER
 
 void USHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps)const

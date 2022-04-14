@@ -124,9 +124,9 @@ void ASTracker::SelfDestruct()
 
 		TArray<AActor*> IgnoredActors;
 
-		UGameplayStatics::ApplyRadialDamage(this, 100, GetActorLocation(), 200, nullptr, IgnoredActors, this, GetInstigatorController(), true);
+		UGameplayStatics::ApplyRadialDamage(this, 60, GetActorLocation(), 200, nullptr, IgnoredActors, this, GetInstigatorController(), true);
 
-		SetLifeSpan(2.f);
+		SetLifeSpan(1.f);
 }
 	}
 

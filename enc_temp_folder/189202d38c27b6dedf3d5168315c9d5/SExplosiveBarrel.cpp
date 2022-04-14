@@ -46,11 +46,12 @@ void ASExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthCompThing, floa
 
 		RadialForceComp->FireImpulse();
 
-		if (HasAuthority())
-		{
-			TArray<AActor*> IgnoredActors;
-			UGameplayStatics::ApplyRadialDamage(this, 60, GetActorLocation(), 200, nullptr, IgnoredActors, this, GetInstigatorController(), true);
-		}
+		//TODO: apply radial damage
+	}
+	if (HasAuthority())
+	{
+		TArray<AActor*> IgnoredActors;
+		UGameplayStatics::ApplyRadialDamage(this, 60, GetActorLocation(), 200, nullptr, IgnoredActors, this, GetInstigatorController(), true);
 	}
 
 }
