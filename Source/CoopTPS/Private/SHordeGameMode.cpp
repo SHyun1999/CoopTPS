@@ -113,7 +113,7 @@ void ASHordeGameMode::CheckPlayersAlive()
 			APawn* Pawn = PC->GetPawn();
 			USHealthComponent* HealthComp = Cast<USHealthComponent>(Pawn->GetComponentByClass(USHealthComponent::StaticClass()));
 
-			if (ensure(HealthComp) && HealthComp->GetHealth() > 0.f)
+			if (HealthComp && HealthComp->GetHealth() > 0.f)
 			{
 				return; //a player is alive.
 			}
@@ -137,7 +137,7 @@ void ASHordeGameMode::SetWaveState(EWaveState NewState)
 
 	ASGameState* GS = GetGameState<ASGameState>();
 
-	if (ensureAlways(GS))
+	if (GS)
 	{
 		GS->WaveState = NewState;
 	}

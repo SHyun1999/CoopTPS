@@ -73,6 +73,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	int32 RateOfFire;
 
+	// bullet spread in degrees
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon", meta = (ClampMin = 0.f))
+	float BulletSpread;
+
 	//derived from rate of fire
 	float TimeBetweenShots;
 

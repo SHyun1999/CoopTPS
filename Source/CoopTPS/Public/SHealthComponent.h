@@ -6,8 +6,6 @@
 #include "Components/ActorComponent.h"
 #include "SHealthComponent.generated.h"
 
-
-
 DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_SixParams(FOnHealthChangedSignature, USHealthComponent, OnHealthChanged, USHealthComponent*, HealthComp, float, Health, float, HealthDelta, const class UDamageType*, DamageType, class AController*, InstigatedBy, class AActor*, DamageCauser);
 
 UCLASS( ClassGroup=(COOP), meta=(BlueprintSpawnableComponent) )
@@ -18,6 +16,9 @@ class COOPTPS_API USHealthComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	USHealthComponent();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category ="HealthComponent")
+	uint8 TeamNum;
 
 protected:
 	// Called when the game starts
@@ -41,6 +42,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "HealthComp")
 	void Heal(float HealAmount);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "HealthComp")
+	static bool IsFriendly(AActor* ActorA, AActor* ActorB);
 
 	float GetHealth() const;
 };

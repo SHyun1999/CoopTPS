@@ -10,6 +10,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class ASWeapon;
 class USHealthComponent;
+
 UCLASS()
 class COOPTPS_API ASCharacter : public ACharacter
 {
@@ -30,8 +31,6 @@ protected:
 	void BeginZoom();
 	void EndZoom();
 
-	void StartFire();
-	void StopFire();
 
 	UFUNCTION()
 	void OnHealthChanged(USHealthComponent* HealthCompThing, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, class AActor* DamageCauser);
@@ -78,5 +77,11 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual FVector GetPawnViewLocation() const override;
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+		void StartFire();
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+		void StopFire();
 
 };

@@ -22,7 +22,7 @@ ASCharacter::ASCharacter()
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera comp"));
 	CameraComp->SetupAttachment(SpringArmComp);
 
-	HealthComp = CreateDefaultSubobject<USHealthComponent>(TEXT("Health comp"));
+	HealthComp = CreateDefaultSubobject<USHealthComponent>(TEXT("HealthComp"));
 
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 
@@ -54,8 +54,6 @@ void ASCharacter::BeginPlay()
 		}
 
 	}
-
-
 
 	HealthComp->OnHealthChanged.AddDynamic(this, &ASCharacter::OnHealthChanged);
 }
