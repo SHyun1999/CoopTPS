@@ -41,6 +41,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USpringArmComponent* SpringArmComp;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
 	USHealthComponent* HealthComp;
 
 	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
